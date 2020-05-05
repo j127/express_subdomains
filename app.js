@@ -1,35 +1,42 @@
+const path = require("path");
 const express = require("express");
 const vhost = require("vhost");
+
+// import routers
+const mysiteRouter = require("./routes/index");
+const catsRouter = require("./routes/cats");
+const dogsRouter = require("./routes/dogs");
 
 // create an app for the top-level domain
 const app = express();
 
 // create an app for each subdomain
-const alpha = express();
-const beta = express();
+const cats = express();
+const dogs = express();
+
+// add handlebars templating
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
+
+// TODO: there may be a better way to do this
+cats.set("views", path.join(__dirname, "views"));
+cats.set("view engine", "hbs");
+
+dogs.set("views", path.join(__dirname, "views"));
+dogs.set("view engine", "hbs");
 
 // Set the domain based on whether it's in production.
 const domain =
     process.NODE_ENV === "production" ? "example.com" : "mysite.local";
 
 // mount the extra apps on their subdomains
-app.use(vhost(`alpha.${domain}`, alpha));
-app.use(vhost(`beta.${domain}`, beta));
+app.use(vhost(`cats.${domain}`, cats));
+app.use(vhost(`dogs.${domain}`, dogs));
 
-// a router for the root domain
-app.get("/", (req, res) => {
-    res.send(`hello world`);
-});
-
-// a router for the alpha subdomain
-alpha.get("/", (req, res) => {
-    res.send("here is the alpha subdomain");
-});
-
-// a router for the beta subdomain
-beta.get("/", (req, res) => {
-    res.send("here is the beta subdomain");
-});
+// mount the router files for the main domain and subdomains
+app.use(mysiteRouter);
+cats.use(catsRouter);
+dogs.use(dogsRouter);
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`server is running at 127.0.0.1:${PORT}`));
