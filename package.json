@@ -1,0 +1,19 @@
+{
+    "name": "@j127/express_subdomains",
+    "version": "0.1.0",
+    "description": "A simple example of using subdomains with Express.js",
+    "scripts": {
+        "start": "npx nodemon app.js",
+        "format": "prettier \"**/*.{js,css,html,json,ts}\" --write"
+    },
+    "author": "J. Cohen <hostelmarketing@gmail.com> (https://github.com/j127)",
+    "license": "BSD-3-Clause",
+    "dependencies": {
+        "express": "^4.17.1",
+        "vhost": "^3.0.2"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.3",
+        "prettier": "^2.0.5"
+    }
+}
