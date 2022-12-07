@@ -9,7 +9,7 @@
     "author": "J. Cohen <hostelmarketing@gmail.com> (https://github.com/j127)",
     "license": "BSD-3-Clause",
     "dependencies": {
-        "express": "^4.17.1",
+        "express": "^4.18.2",
         "hbs": "^4.1.1",
         "vhost": "^3.0.2"
     },
